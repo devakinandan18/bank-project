@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Transactions - SecureBank</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:Arial;
+background:#07111f;
+color:#eef6ff;
+}
+.nav{
+height:70px;background:#0d1b2e;
+display:flex;align-items:center;justify-content:space-between;
+padding:0 7%;
+}
+.logo{color:#35d0ba;font-size:24px;font-weight:bold}
+.nav a{color:white;text-decoration:none}
+.container{width:92%;max-width:1100px;margin:40px auto}
+.box{
+background:#0d1b2e;padding:30px;border-radius:18px;
+border:1px solid rgba(255,255,255,.08)
+}
+h1{margin-bottom:25px}
+.filter{
+display:flex;gap:15px;margin-bottom:25px
+}
+input,select{
+padding:12px;background:#10233a;color:white;
+border:1px solid rgba(255,255,255,.1);
+border-radius:8px
+}
+table{width:100%;border-collapse:collapse}
+th,td{
+padding:16px;
+border-bottom:1px solid rgba(255,255,255,.08);
+text-align:left
+}
+.credit{color:#35d0ba}
+.debit{color:#ff647c}
+.success{color:#35d0ba}
+.failed{color:#ff647c}
+
+@media(max-width:700px){
+.box{overflow-x:auto}
+table{min-width:700px}
+.filter{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+<div class="logo">SecureBank</div>
+<a href="user-dashboard.html">Dashboard</a>
+</nav>
+
+<div class="container">
+
+<div class="box">
+
+<h1>📜 Transaction History</h1>
+
+<div class="filter">
+
+<input id="search" onkeyup="searchTransaction()"
+placeholder="Search transaction...">
+
+<select id="type" onchange="filterType()">
+<option value="all">All Transactions</option>
+<option value="credit">Credit</option>
+<option value="debit">Debit</option>
+</select>
+
+</div>
+
+<table id="transactionTable">
+
+<thead>
+<tr>
+<th>Date</th>
+<th>Transaction ID</th>
+<th>Description</th>
+<th>Type</th>
+<th>Amount</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody id="transactionBody">
+</tbody>
+</table>
+
+</div>
+</div>
+
+<script>
+
+const accountnumber = localStorage.getItem("accountnumber");
+const token = localStorage.getItem("token");
+
+if(!accountnumber || !token)
+{
+    window.location.href = "user-login.html";
+}
+
+fetch(`http://localhost:8080/user/transactions?accountnumber=${accountnumber}`, {
+    headers: {
+        "Authorization": "Bearer " + token
+    }
+})
+.then(response => {
+
+    if(!response.ok)
+    {
+        throw new Error("HTTP Error Status: " + response.status);
+    }
+
+    return response.json();
+
+})
+.then(data => {
+
+    const tbody = document.getElementById("transactionBody");
+
+    tbody.innerHTML = "";
+
+    data.reverse().forEach(t => {
+
+        let type = t.type.toLowerCase();
+
+        let amountClass = type === "credit"
+            ? "credit"
+            : "debit";
+
+        let symbol = type === "credit"
+            ? "+"
+            : "-";
+
+        let row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${t.date}</td>
+            <td>TXN${t.id}</td>
+            <td>${t.description}</td>
+            <td>${type}</td>
+            <td class="${amountClass}">
+                ${symbol}₹${t.amount}
+            </td>
+            <td class="success">Success</td>
+        `;
+
+        tbody.appendChild(row);
+
+    });
+
+})
+.catch(error => {
+
+    console.log(error);
+
+});
+
+
+function searchTransaction(){
+
+    let input =
+        document.getElementById("search").value.toLowerCase();
+
+    let rows =
+        document.querySelectorAll("#transactionTable tbody tr");
+
+    rows.forEach(row => {
+
+        row.style.display =
+            row.innerText.toLowerCase().includes(input)
+            ? ""
+            : "none";
+
+    });
+
+}
+
+
+function filterType(){
+
+    let type =
+        document.getElementById("type").value.toLowerCase();
+
+    let rows =
+        document.querySelectorAll("#transactionTable tbody tr");
+
+    rows.forEach(row => {
+
+        let rowType =
+            row.cells[3].innerText.toLowerCase();
+
+        row.style.display =
+            (type === "all" || rowType === type)
+            ? ""
+            : "none";
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>

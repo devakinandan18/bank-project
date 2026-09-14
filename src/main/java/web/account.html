@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Account Details - SecureBank</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+    font-family:Arial;
+    background:#07111f;
+    color:#eef6ff;
+}
+.nav{
+    height:70px;
+    background:#0d1b2e;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 7%;
+}
+.logo{color:#35d0ba;font-size:24px;font-weight:bold}
+.nav a{color:white;text-decoration:none;margin-left:20px}
+.container{max-width:850px;width:90%;margin:40px auto}
+.box{
+    background:#0d1b2e;
+    padding:30px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.08);
+}
+h1{margin-bottom:25px}
+.row{
+    display:flex;
+    justify-content:space-between;
+    padding:18px 5px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+.label{color:#91a4ba}
+.value{font-weight:bold}
+.btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:12px 25px;
+    background:#35d0ba;
+    color:#06121d;
+    border-radius:9px;
+    text-decoration:none;
+    font-weight:bold;
+}
+@media(max-width:600px){
+.row{flex-direction:column;gap:7px}
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+<div class="logo">SecureBank</div>
+<div>
+<a href="user-dashboard.html">Dashboard</a>
+<a href="profile.html">Profile</a>
+</div>
+</nav>
+
+<div class="container">
+
+<div class="box">
+
+<h1>🏦 Account Details</h1>
+
+<div class="row">
+<span class="label" >Account Holder</span>
+<span class="value" id="name">Aman</span>
+</div>
+
+<div class="row">
+<span class="label" >Account Number</span>
+<span class="value" id="accountnumber">123456789012</span>
+</div>
+
+<div class="row">
+<span class="label" >IFSC Code</span>
+<span class="value" id="ifsc">SBIN0001234</span>
+</div>
+
+<!-- <div class="row">
+<span class="label">Account Type</span>
+<span class="value">Savings Account</span>
+</div> -->
+
+<div class="row">
+<span class="label" >Available Balance</span>
+<span class="value" id="balance">₹75,500</span>
+</div>
+
+<div class="row">
+<span class="label" >Mobile Number</span>
+<span class="value" id="mobilenumber">9876547890</span>
+</div>
+
+<div class="row">
+<span class="label" >Account Status</span>
+<span class="value"  id="status" style="color:#35d0ba">Active</span>
+</div>
+
+<a href="user-dashboard.html" class="btn">Back to Dashboard</a>
+
+</div>
+</div>
+
+<script>
+
+window.onload = function(){
+
+    const accountnumber =
+        localStorage.getItem("accountnumber");
+
+
+   fetch("http://localhost:8080/user/getuser?accountnumber="+accountnumber, {
+    headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+    }
+})
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        document.getElementById("name").innerText =
+            data.name;
+
+        document.getElementById("accountnumber").innerText =
+            data.accountnumber;
+
+        document.getElementById("ifsc").innerText =
+            data.ifsccode;
+
+        document.getElementById("balance").innerText =
+            "₹" + data.balance;
+
+        document.getElementById("mobilenumber").innerText =
+            data.mobilenumber;
+              console.log(data.status);
+
+        document.getElementById("status").innerText =
+            data.status;
+          
+
+    })
+
+    .catch(error => {
+
+        console.log(error);
+        alert("Server Error");
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>

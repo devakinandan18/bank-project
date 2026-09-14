@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard | SecureBank</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+
+body{
+    background:#07111f;
+    color:#eef6ff;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    height:70px;
+    background:#0d1b2e;
+    border-bottom:1px solid #1b3048;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 6%;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    color:#35d0ba;
+    font-size:24px;
+    font-weight:700;
+    text-decoration:none;
+}
+
+.logo span{
+    color:white;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.admin-name{
+    color:#c8d5e5;
+}
+
+.logout{
+    color:#ff647c;
+    text-decoration:none;
+    border:1px solid #ff647c;
+    padding:8px 15px;
+    border-radius:7px;
+}
+
+.logout:hover{
+    background:#ff647c;
+    color:white;
+}
+
+
+/* ================= CONTAINER ================= */
+
+.container{
+    width:88%;
+    max-width:1300px;
+    margin:auto;
+    padding:40px 0;
+}
+
+.heading{
+    margin-bottom:30px;
+}
+
+.heading h1{
+    font-size:32px;
+}
+
+.heading p{
+    color:#91a4ba;
+    margin-top:5px;
+}
+
+
+/* ================= STAT CARDS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-bottom:40px;
+}
+
+.stat-card{
+    background:#0d1b2e;
+    border:1px solid #1b3048;
+    border-radius:15px;
+    padding:25px;
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-5px);
+    border-color:#35d0ba;
+}
+
+.stat-card .icon{
+    font-size:28px;
+    margin-bottom:12px;
+}
+
+.stat-card p{
+    color:#91a4ba;
+    font-size:14px;
+}
+
+.stat-card h2{
+    margin-top:5px;
+    font-size:27px;
+}
+
+.green{
+    color:#35d0ba;
+}
+
+
+/* ================= COMMON SECTION ================= */
+
+.section{
+    background:#0d1b2e;
+    border:1px solid #1b3048;
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:30px;
+}
+
+.section-title{
+    margin-bottom:20px;
+}
+
+.section-title h2{
+    font-size:22px;
+}
+
+.section-title p{
+    color:#91a4ba;
+    font-size:14px;
+    margin-top:4px;
+}
+
+
+/* ================= FIND USER ================= */
+
+.search-row{
+    display:flex;
+    gap:12px;
+}
+
+.input{
+    flex:1;
+    background:#10233a;
+    border:1px solid #1b3048;
+    color:white;
+    padding:13px 15px;
+    border-radius:8px;
+    outline:none;
+}
+
+.input:focus{
+    border-color:#35d0ba;
+}
+
+.btn{
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.primary{
+    background:#35d0ba;
+    color:#07111f;
+}
+
+.primary:hover{
+    transform:translateY(-2px);
+}
+
+.danger{
+    background:#ff647c;
+    color:white;
+}
+
+.secondary{
+    background:#10233a;
+    border:1px solid #35d0ba;
+    color:#35d0ba;
+}
+
+
+/* USER DETAILS */
+
+.user-details{
+    display:none;
+    margin-top:25px;
+}
+
+.details-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.detail{
+    background:#10233a;
+    padding:18px;
+    border-radius:10px;
+}
+
+.detail small{
+    display:block;
+    color:#91a4ba;
+    margin-bottom:5px;
+}
+
+.detail strong{
+    font-size:15px;
+}
+
+
+/* ================= DEPOSIT ================= */
+
+.deposit-form{
+    display:grid;
+    grid-template-columns:1fr 1fr auto;
+    gap:12px;
+}
+
+
+/* ================= CARD REQUESTS ================= */
+
+.request-table{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:750px;
+}
+
+th,td{
+    padding:15px;
+    text-align:left;
+    border-bottom:1px solid #1b3048;
+}
+
+th{
+    color:#91a4ba;
+    font-size:13px;
+    font-weight:500;
+}
+
+td{
+    font-size:14px;
+}
+
+.status{
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.pending{
+    color:#f4c95d;
+    background:rgba(244,201,93,.12);
+}
+
+.accepted{
+    color:#35d0ba;
+    background:rgba(53,208,186,.12);
+}
+
+.rejected{
+    color:#ff647c;
+    background:rgba(255,100,124,.12);
+}
+
+.action-btn{
+    border:none;
+    padding:7px 11px;
+    border-radius:6px;
+    cursor:pointer;
+    margin:2px;
+}
+
+.accept{
+    background:#35d0ba;
+    color:#07111f;
+}
+
+.reject{
+    background:#ff647c;
+    color:white;
+}
+
+
+/* ================= ADMIN PROFILE ================= */
+
+.profile-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.profile-item{
+    background:#10233a;
+    padding:18px;
+    border-radius:10px;
+}
+
+.profile-item small{
+    display:block;
+    color:#91a4ba;
+    margin-bottom:5px;
+}
+
+
+/* PROFILE UPDATE */
+
+.update-form{
+    display:none;
+    margin-top:25px;
+    border-top:1px solid #1b3048;
+    padding-top:25px;
+}
+
+.update-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group label{
+    color:#91a4ba;
+    font-size:13px;
+}
+
+
+/* ================= NOTIFICATION ================= */
+
+.notification{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+
+    background:#0d1b2e;
+    border:1px solid #35d0ba;
+
+    padding:15px 20px;
+    border-radius:10px;
+
+    display:none;
+    z-index:999;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .details-grid,
+    .profile-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .deposit-form{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:650px){
+
+    .navbar{
+        padding:0 5%;
+    }
+
+    .admin-name{
+        display:none;
+    }
+
+    .container{
+        width:92%;
+    }
+
+    .heading h1{
+        font-size:27px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .search-row{
+        flex-direction:column;
+    }
+
+    .details-grid,
+    .profile-grid,
+    .update-grid{
+        grid-template-columns:1fr;
+    }
+
+    .deposit-form{
+        grid-template-columns:1fr;
+    }
+
+    .section{
+        padding:20px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a href="admin-dashboard.html" class="logo">
+        Secure<span>Bank</span>
+    </a>
+
+    <div class="nav-right">
+
+        <span class="admin-name">
+            👨‍💼 Bank Admin
+        </span>
+
+        <a href="admin-login.html" class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<div class="container">
+
+
+<!-- ================= HEADING ================= -->
+
+<div class="heading">
+
+    <h1>Admin Dashboard</h1>
+
+    <p>
+        Manage users, deposits, card requests and your profile.
+    </p>
+
+</div>
+
+
+
+<!-- ================= STATISTICS ================= -->
+
+<div class="stats">
+
+    <div class="stat-card">
+
+        <div class="icon">👥</div>
+
+        <p>Total Users</p>
+
+        <h2 id="totalUsers">0</h2>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="icon">🏦</div>
+
+        <p>Total Accounts</p>
+
+<h2 id="totalAccounts">0</h2>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="icon">💰</div>
+
+        <p>Total Bank Balance</p>
+
+        <h2 class="green" id="totalBalance">₹0</h2>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="icon">🪪</div>
+
+        <p>Pending Card Requests</p>
+
+        <h2 id="requestCount">2</h2>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- FIND USER -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+
+        <h2>🔎 Find User</h2>
+
+        <p>
+            Enter the user's account number to view account details.
+        </p>
+
+    </div>
+
+
+    <div class="search-row">
+
+        <input
+            type="text"
+            id="accountNumber"
+            class="input"
+            placeholder="Enter Account Number"
+           
+        >
+
+        <button
+            class="btn primary"
+            onclick="findUser()">
+            Search User
+        </button>
+
+    </div>
+
+
+    <!-- USER DETAILS -->
+
+    <div class="user-details" id="userDetails">
+
+        <div class="details-grid">
+
+            <div class="detail">
+                <small>Name</small>
+                <strong id="userName">Aman Kumar</strong>
+            </div>
+
+            <div class="detail">
+                <small>Account Number</small>
+                <strong id="userAccount">123456789012</strong>
+            </div>
+
+            <div class="detail">
+                <small>Mobile Number</small>
+                <strong id="userMobile">9876543210</strong>
+            </div>
+
+            <div class="detail">
+                <small>IFSC Code</small>
+                <strong id="userIfsc">SBIN0001234</strong>
+            </div>
+
+            <div class="detail">
+                <small>Balance</small>
+                <strong class="green" id="userBalance">
+                    ₹75,500
+                </strong>
+            </div>
+
+            <div class="detail">
+                <small>Account Status</small>
+                <strong class="green">
+                    Active
+                </strong>
+            </div>
+
+            <div class="detail">
+                <small>Card Status</small>
+                <strong id="cardStatus">
+                    Not Issued
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- DEPOSIT MONEY -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+
+        <h2>💰 Deposit Money</h2>
+
+        <p>
+            Deposit money directly into a user's account.
+        </p>
+
+    </div>
+
+
+    <div class="deposit-form">
+
+        <input
+            type="text"
+            id="depositAccount"
+            class="input"
+            placeholder="Account Number"
+            
+        >
+
+
+        <input
+            type="number"
+            id="depositAmount"
+            class="input"
+            placeholder="Enter Amount"
+            min="1"
+        >
+
+
+        <button
+            class="btn primary"
+            onclick="depositMoney()">
+
+            Deposit Money
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- CARD REQUESTS -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+
+        <h2>🪪 Card Requests</h2>
+
+        <p>
+            Review user card applications and accept or reject requests.
+        </p>
+
+    </div>
+
+
+    <div class="request-table">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>User Name</th>
+                    <th>Account Number</th>
+                    <th>Card Type</th>
+                    <th>Request Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="requestTable">
+
+                <tr>
+
+                    <td>Rahul Singh</td>
+
+                    <td>123456789013</td>
+
+                    <td>Debit Card</td>
+
+                    <td>07 Sep 2026</td>
+
+                    <td>
+                        <span class="status pending">
+                            Pending
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="action-btn accept"
+                            onclick="acceptRequest(this)">
+                            Accept
+                        </button>
+
+                        <button
+                            class="action-btn reject"
+                            onclick="rejectRequest(this)">
+                            Reject
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Priya Sharma</td>
+
+                    <td>123456789014</td>
+
+                    <td>Debit Card</td>
+
+                    <td>06 Sep 2026</td>
+
+                    <td>
+                        <span class="status pending">
+                            Pending
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="action-btn accept"
+                            onclick="acceptRequest(this)">
+                            Accept
+                        </button>
+
+                        <button
+                            class="action-btn reject"
+                            onclick="rejectRequest(this)">
+                            Reject
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- ADMIN PROFILE -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+
+        <h2>👨‍💼 Admin Profile</h2>
+
+        <p>
+            View and update your admin account information.
+        </p>
+
+    </div>
+
+
+    <div class="profile-grid">
+
+        <div class="profile-item">
+
+            <small>Name</small>
+
+            <strong id="adminName">
+                Bank Administrator
+            </strong>
+
+        </div>
+
+
+        <div class="profile-item">
+
+            <small>Mobile Number</small>
+
+            <strong id="adminMobile">
+                9876543210
+            </strong>
+
+        </div>
+
+
+        <div class="profile-item">
+
+            <small>Role</small>
+
+            <strong class="green">
+                Administrator
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <button
+        class="btn secondary"
+        onclick="showUpdateForm()">
+
+        ✏️ Update Profile
+
+    </button>
+
+
+
+    <!-- UPDATE FORM -->
+
+    <div
+        class="update-form"
+        id="updateForm">
+
+
+        <div class="update-grid">
+
+
+            <div class="form-group">
+
+                <label>
+                    Admin Name
+                </label>
+
+                <input
+                    type="text"
+                    id="newAdminName"
+                    class="input"
+                    placeholder="Enter new name"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Mobile Number
+                </label>
+
+                <input
+                    type="text"
+                    id="newAdminMobile"
+                    class="input"
+                    placeholder="Enter new mobile number"
+                    maxlength="10"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    New Password
+                </label>
+
+                <input
+                    type="password"
+                    id="newAdminPassword"
+                    class="input"
+                    placeholder="Enter new password"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Confirm Password
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmAdminPassword"
+                    class="input"
+                    placeholder="Confirm password"
+                >
+
+            </div>
+
+        </div>
+
+
+        <br>
+
+
+        <button
+            class="btn primary"
+            onclick="updateProfile()">
+
+            Save Changes
+
+        </button>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- ================= NOTIFICATION ================= -->
+
+<div
+    class="notification"
+    id="notification">
+</div>
+
+
+
+<script>
+
+window.onload = function(){
+
+    // =========================
+    // TOTAL USERS
+    // =========================
+
+    fetch("http://localhost:8080/user/totalusers",{
+         headers: {
+        "Authorization": "Bearer " + localStorage.getItem("adminToken")
+    }
+    })
+
+    .then(response => response.json())
+    .then(data => {
+
+        document.getElementById("totalUsers").innerText = data;
+
+    })
+    .catch(error => {
+
+        console.log(error);
+
+    });
+
+
+    // =========================
+    // TOTAL ACCOUNTS
+    // =========================
+
+    fetch("http://localhost:8080/user/totalaccounts",{
+         headers: {
+        "Authorization": "Bearer " + localStorage.getItem("adminToken")
+    }
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        document.getElementById("totalAccounts").innerText = data;
+
+    })
+    .catch(error => {
+
+        console.log(error);
+
+    });
+
+
+    // =========================
+    // TOTAL BANK BALANCE
+    // =========================
+
+    fetch("http://localhost:8080/user/totalbalance",{
+         headers: {
+        "Authorization": "Bearer " + localStorage.getItem("adminToken")
+    }
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        document.getElementById("totalBalance").innerText =
+            "₹" + data.toLocaleString("en-IN");
+
+    })
+    .catch(error => {
+
+        console.log(error);
+
+    });
+
+
+    // =========================
+    // ADMIN PROFILE
+    // =========================
+
+    const adminMobile =
+        localStorage.getItem("adminmobilenumber");
+
+    if(adminMobile != null)
+    {
+        fetch(
+            "http://localhost:8080/admin/getadmin?mobilenumber="+ encodeURIComponent(adminMobile),{
+                 headers: {
+        "Authorization": "Bearer " + localStorage.getItem("adminToken")
+    }
+            })
+        .then(response => response.json())
+        .then(data => {
+
+            if(data != null)
+            {
+                document.getElementById("adminName").innerText =
+                    data.adminname;
+
+                document.getElementById("adminMobile").innerText =
+                    data.mobilenumber;
+            }
+
+        })
+        .catch(error => {
+
+            console.log(error);
+
+        });
+    }
+
+};
+
+
+// =========================
+// FIND USER
+// =========================
+
+function findUser(){
+
+    const account =
+        document
+        .getElementById("accountNumber")
+        .value
+        .trim();
+
+    if(account === ""){
+
+        showNotification(
+            "Please enter account number."
+        );
+
+        return;
+    }
+
+
+    fetch(
+        "http://localhost:8080/user/getuser?accountnumber="+encodeURIComponent(account),{
+             headers: {
+        "Authorization": "Bearer " + localStorage.getItem("adminToken")
+    }
+        })
+    .then(response => {
+
+        if(!response.ok){
+
+            throw new Error("Server Error");
+
+        }
+
+        return response.json();
+
+    })
+    .then(data => {
+
+        if(data == null){
+
+            document.getElementById("userDetails")
+                .style.display = "none";
+
+            showNotification(
+                "No user found with this account number."
+            );
+
+            return;
+        }
+
+
+        document.getElementById("userName")
+            .innerText = data.name;
+
+
+        document.getElementById("userAccount")
+            .innerText = data.accountnumber;
+
+
+        document.getElementById("userMobile")
+            .innerText = data.mobilenumber;
+
+
+        document.getElementById("userIfsc")
+            .innerText = data.ifsccode;
+
+
+        document.getElementById("userBalance")
+            .innerText =
+            "₹" + data.balance.toLocaleString("en-IN");
+
+
+        document.getElementById("userDetails")
+            .style.display = "block";
+
+
+        showNotification(
+            "User found successfully."
+        );
+
+    })
+    .catch(error => {
+
+        console.log(error);
+
+        document.getElementById("userDetails")
+            .style.display = "none";
+
+        showNotification(
+            "Server Error."
+        );
+
+    });
+
+}
+
+
+// =========================
+// DEPOSIT MONEY
+// =========================
+
+function depositMoney(){
+
+    const account =
+        document
+        .getElementById("depositAccount")
+        .value
+        .trim();
+
+
+    const amount =
+        document
+        .getElementById("depositAmount")
+        .value
+        .trim();
+
+
+    if(account === ""){
+
+        showNotification(
+            "Please enter account number."
+        );
+
+        return;
+    }
+
+
+    if(amount === "" || Number(amount) <= 0){
+
+        showNotification(
+            "Please enter valid amount."
+        );
+
+        return;
+    }
+
+
+    fetch(
+        "http://localhost:8080/admin/deposit?accountnumber="+ encodeURIComponent(account) + "&amount=" + encodeURIComponent(amount),
+        {
+            method: "PATCH",
+             headers: {
+        "Authorization": "Bearer " + localStorage.getItem("adminToken")
+    }
+        }
+    )
+    .then(response => {
+
+        if(!response.ok){
+
+            throw new Error("Server Error");
+
+        }
+
+        return response.json();
+
+    })
+    .then(data => {
+
+        if(data === true){
+
+            showNotification(
+                "Money deposited successfully."
+            );
+
+            document.getElementById("depositAccount")
+                .value = "";
+
+            document.getElementById("depositAmount")
+                .value = "";
+
+        }
+        else{
+
+            showNotification(
+                "Account not found."
+            );
+
+        }
+
+    })
+    .catch(error => {
+
+        console.log(error);
+
+        showNotification(
+            "Server Error."
+        );
+
+    });
+
+}
+
+
+// =========================
+// CARD REQUEST ACCEPT
+// =========================
+
+function acceptRequest(button){
+
+    const row = button.closest("tr");
+
+    row.cells[3].innerText = "Approved";
+
+    row.cells[3].className = "green";
+
+    button.parentElement.innerHTML =
+        '<span class="green">Approved</span>';
+
+    showNotification(
+        "Card request approved."
+    );
+
+}
+
+
+// =========================
+// CARD REQUEST REJECT
+// =========================
+
+function rejectRequest(button){
+
+    const row = button.closest("tr");
+
+    row.cells[3].innerText = "Rejected";
+
+    row.cells[3].className = "red";
+
+    button.parentElement.innerHTML =
+        '<span class="red">Rejected</span>';
+
+    showNotification(
+        "Card request rejected."
+    );
+
+}
+
+
+// =========================
+// SHOW UPDATE FORM
+// =========================
+
+function showUpdateForm(){
+
+    document.getElementById("updateForm")
+        .style.display = "block";
+
+}
+
+
+// =========================
+// UPDATE ADMIN PROFILE
+// =========================
+
+function updateProfile(){
+
+    const oldMobile =
+        localStorage.getItem("adminmobilenumber");
+
+
+    const newName =
+        document
+        .getElementById("newAdminName")
+        .value
+        .trim();
+
+
+    const newMobile =
+        document
+        .getElementById("newAdminMobile")
+        .value
+        .trim();
+
+
+    const newPassword =
+        document
+        .getElementById("newAdminPassword")
+        .value;
+
+
+    const confirmPassword =
+        document
+        .getElementById("confirmAdminPassword")
+        .value;
+
+
+    if(oldMobile == null){
+
+        showNotification(
+            "Admin login information not found."
+        );
+
+        return;
+    }
+
+
+    // =========================
+    // PASSWORD CHECK
+    // =========================
+
+    if(newPassword !== "" &&
+       newPassword !== confirmPassword){
+
+        showNotification(
+            "Passwords do not match."
+        );
+
+        return;
+    }
+
+
+    // =========================
+    // UPDATE NAME
+    // =========================
+
+    if(newName !== ""){
+
+        fetch(
+            "http://localhost:8080/admin/updateadmin?newdetail="
+            + encodeURIComponent(newName)
+            + "&mobilenumber="
+            + encodeURIComponent(oldMobile)
+            + "&choice=1",
+            {
+                method: "PATCH",
+                 headers: {
+        "Authorization": "Bearer " + localStorage.getItem("adminToken")
+    }
+            }
+        )
+        .then(response => response.json())
+        .then(data => {
+
+            console.log(data);
+
+        })
+        .catch(error => {
+
+            console.log(error);
+
+        });
+
+    }
+
+
+    // =========================
+    // UPDATE MOBILE
+    // =========================
+
+    if(newMobile !== "" &&
+       newMobile !== oldMobile){
+
+        fetch(
+            "http://localhost:8080/admin/updateadmin?newdetail="
+            + encodeURIComponent(newMobile)
+            + "&mobilenumber="
+            + encodeURIComponent(oldMobile)
+            + "&choice=2",
+            {
+                method: "PATCH",
+                 headers: {
+        "Authorization": "Bearer " + localStorage.getItem("adminToken")
+    }
+            }
+        )
+        .then(response => response.json())
+        .then(data => {
+
+            localStorage.setItem(
+                "adminmobilenumber",
+                newMobile
+            );
+
+        })
+        .catch(error => {
+
+            console.log(error);
+
+        });
+
+    }
+
+
+    // =========================
+    // UPDATE PASSWORD
+    // =========================
+
+    if(newPassword !== ""){
+
+        fetch(
+            "http://localhost:8080/admin/updateadmin?newdetail=" + encodeURIComponent(newPassword) + "&mobilenumber=" + encodeURIComponent(oldMobile) + "&choice=3",
+            {
+                method: "PATCH", 
+                headers: {
+        "Authorization": "Bearer " + localStorage.getItem("adminToken")
+    }
+
+            }
+        )
+        .then(response => response.json())
+        .then(data => {
+
+            console.log(data);
+
+        })
+        .catch(error => {
+
+            console.log(error);
+
+        });
+
+    }
+
+
+    showNotification(
+        "Profile updated successfully."
+    );
+
+}
+
+
+// =========================
+// NOTIFICATION
+// =========================
+
+function showNotification(message){
+
+    const notification =
+        document.getElementById("notification");
+
+
+    notification.innerText = message;
+
+    notification.style.display = "block";
+
+
+    setTimeout(function(){
+
+        notification.style.display = "none";
+
+    }, 3000);
+
+}
+
+
+// =========================
+// LOGOUT
+// =========================
+
+function logout(){
+
+    localStorage.removeItem("adminmobilenumber");
+    localStorage.removeItem("adminToken");
+
+    window.location.href = "admin-login.html";
+
+}
+
+const adminMobile =
+    localStorage.getItem("adminmobilenumber");
+
+const adminToken =
+    localStorage.getItem("adminToken");
+
+if(adminMobile != null && adminToken != null)
+{
+    fetch(
+        "http://localhost:8080/admin/getadmin?mobilenumber="
+        + encodeURIComponent(adminMobile),
+        {
+            headers: {
+                "Authorization": "Bearer " + adminToken
+            }
+        }
+    )
+    .then(response => response.json())
+    .then(data => {
+
+        if(data != null)
+        {
+            document.getElementById("adminName").innerText =
+                data.adminname;
+
+            document.getElementById("adminMobile").innerText =
+                data.mobilenumber;
+        }
+
+    })
+    .catch(error => {
+
+        console.log(error);
+
+    });
+}
+</script>
+
+</body>
+</html>

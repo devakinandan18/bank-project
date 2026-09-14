@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecureBank - Profile</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#07111f;
+    color:#eef6ff;
+    min-height:100vh;
+}
+
+.navbar{
+    height:70px;
+    background:#0d1b2e;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    border-bottom:1px solid #1b3048;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:bold;
+    color:#35d0ba;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+}
+
+.nav-links a{
+    color:#91a4ba;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#35d0ba;
+}
+
+.container{
+    width:90%;
+    max-width:1000px;
+    margin:40px auto;
+}
+
+.page-title{
+    margin-bottom:25px;
+}
+
+.page-title h1{
+    font-size:30px;
+}
+
+.page-title p{
+    color:#91a4ba;
+    margin-top:7px;
+}
+
+.profile-card{
+    background:#0d1b2e;
+    border:1px solid #1b3048;
+    border-radius:18px;
+    padding:30px;
+}
+
+.user-header{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding-bottom:25px;
+    border-bottom:1px solid #1b3048;
+    margin-bottom:30px;
+}
+
+.avatar{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    background:#35d0ba;
+    color:#07111f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.user-header h2{
+    font-size:24px;
+}
+
+.user-header p{
+    color:#91a4ba;
+    margin-top:5px;
+}
+
+.section{
+    margin-bottom:30px;
+}
+
+.section-title{
+    font-size:19px;
+    margin-bottom:18px;
+    color:#35d0ba;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.input-box{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-box label{
+    margin-bottom:8px;
+    color:#91a4ba;
+    font-size:14px;
+}
+
+.input-box input{
+    background:#10233a;
+    border:1px solid #263d58;
+    color:#eef6ff;
+    padding:13px;
+    border-radius:9px;
+    outline:none;
+    font-size:15px;
+}
+
+.input-box input:focus{
+    border-color:#35d0ba;
+}
+
+.readonly{
+    opacity:.65;
+}
+
+.buttons{
+    display:flex;
+    gap:15px;
+    margin-top:25px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:none;
+    padding:13px 25px;
+    border-radius:9px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.save-btn{
+    background:#35d0ba;
+    color:#07111f;
+}
+
+.save-btn:hover{
+    transform:translateY(-2px);
+}
+
+.cancel-btn{
+    background:#10233a;
+    color:#eef6ff;
+    border:1px solid #263d58;
+}
+
+.message{
+    margin-top:18px;
+    padding:12px;
+    border-radius:8px;
+    display:none;
+    background:#102f2c;
+    color:#35d0ba;
+}
+
+.danger-section{
+    border-top:1px solid #1b3048;
+    padding-top:25px;
+}
+
+.delete-btn{
+    background:#ff647c;
+    color:white;
+}
+
+@media(max-width:700px){
+
+    .navbar{
+        padding:0 4%;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .container{
+        width:94%;
+        margin:25px auto;
+    }
+
+    .profile-card{
+        padding:20px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .user-header h2{
+        font-size:20px;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🏦 SecureBank
+    </div>
+
+    <div class="nav-links">
+        <a href="user-dashboard.html">Dashboard</a>
+        <a href="account.html">Account</a>
+        <a href="transactions.html">Transactions</a>
+        <a href="profile.html">Profile</a>
+        <a href="index.html">Logout</a>
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="page-title">
+        <h1>My Profile</h1>
+        <p>Manage your personal and account information</p>
+    </div>
+
+
+    <div class="profile-card">
+
+        <!-- User Header -->
+
+        <div class="user-header">
+
+            <div class="avatar" id="avatar">
+                A
+            </div>
+
+            <div>
+                <h2 id="displayName">Loading...</h2>
+                <p>Bank Customer</p>
+            </div>
+
+        </div>
+
+
+        <!-- Personal Information -->
+
+        <div class="section">
+
+            <div class="section-title">
+                👤 Personal Information
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-box">
+
+                    <label>Full Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        readonly>
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>Mobile Number</label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        maxlength="10"
+                        readonly>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Account Information -->
+
+        <div class="section">
+
+            <div class="section-title">
+                🏦 Account Information
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-box">
+
+                    <label>Account Number</label>
+
+                    <input
+                        class="readonly"
+                        id="accountnumber"
+                        type="text"
+                        readonly>
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>IFSC Code</label>
+
+                    <input
+                        class="readonly"
+                        id="ifsc"
+                        type="text"
+                        readonly>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Password -->
+
+        <div class="section">
+
+            <div class="section-title">
+                🔐 Change Password
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-box">
+
+                    <label>Current Password</label>
+
+                    <input
+                        type="password"
+                        id="currentPassword"
+                        placeholder="Current password">
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>New Password</label>
+
+                    <input
+                        type="password"
+                        id="newPassword"
+                        placeholder="New password">
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>Confirm New Password</label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm new password">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Buttons -->
+
+        <div class="buttons">
+
+            <button
+                class="btn save-btn"
+                onclick="changePassword()">
+                🔐 Change Password
+            </button>
+
+
+            <button
+                class="btn cancel-btn"
+                onclick="location.reload()">
+                Cancel
+            </button>
+
+        </div>
+
+
+        <div class="message" id="message"></div>
+
+
+        <!-- Delete Account -->
+
+        <div class="section danger-section">
+
+            <div class="section-title" style="color:#ff647c;">
+                ⚠️ Danger Zone
+            </div>
+
+            <p style="color:#91a4ba; margin-bottom:15px;">
+                Deleting your account is permanent and cannot be undone.
+            </p>
+
+            <button
+                class="btn delete-btn"
+                onclick="deleteAccount()">
+                Delete Account
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+// Profile Load
+
+window.onload = function(){
+
+    const accountnumber =
+        localStorage.getItem("accountnumber");
+
+
+   fetch(`http://localhost:8080/user/getuser?accountnumber=${accountnumber}`, {
+    headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+    }
+})
+    .then(response => response.json())
+
+    .then(data => {
+
+        document.getElementById("displayName").innerText =
+            data.name;
+
+        document.getElementById("avatar").innerText =
+            data.name.charAt(0).toUpperCase();
+
+        document.getElementById("name").value =
+            data.name;
+
+        document.getElementById("mobile").value =
+            data.mobilenumber;
+
+        document.getElementById("accountnumber").value =
+            data.accountnumber;
+
+        document.getElementById("ifsc").value =
+            data.ifsccode;
+
+    })
+
+    .catch(error => {
+
+        console.log(error);
+        alert("Server Error");
+
+    });
+
+}
+
+
+// Change Password
+
+function changePassword(){
+
+    const currentPassword =
+        document.getElementById("currentPassword").value;
+
+    const newPassword =
+        document.getElementById("newPassword").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    const accountnumber =
+        localStorage.getItem("accountnumber");
+
+
+    if(currentPassword === "")
+    {
+        showMessage("Please enter your current password.");
+        return;
+    }
+
+
+    if(newPassword === "")
+    {
+        showMessage("Please enter your new password.");
+        return;
+    }
+
+
+    if(newPassword.length < 6)
+    {
+        showMessage("New password must contain at least 6 characters.");
+        return;
+    }
+
+
+    if(newPassword !== confirmPassword)
+    {
+        showMessage("New password and confirm password do not match.");
+        return;
+    }
+
+
+   fetch(`http://localhost:8080/user/changepassword?accountnumber=${accountnumber}&currentpassword=${currentpassword}&newpassword=${newpassword}`, {
+    method: "PATCH",
+    headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+    }
+})
+    .then(response => response.text())
+
+    .then(data => {
+
+        console.log("Backend response:", data);
+
+
+        if(data === "true")
+        {
+            showMessage("Password changed successfully!");
+
+            document.getElementById("currentPassword").value = "";
+            document.getElementById("newPassword").value = "";
+            document.getElementById("confirmPassword").value = "";
+        }
+        else
+        {
+            showMessage("Current password is incorrect.");
+        }
+
+    })
+
+    .catch(error => {
+
+        console.log(error);
+        showMessage("Server Error");
+
+    });
+
+}
+
+
+// Message
+
+function showMessage(text){
+
+    const message =
+        document.getElementById("message");
+
+    message.innerText = text;
+
+    message.style.display = "block";
+
+
+    setTimeout(() => {
+
+        message.style.display = "none";
+
+    }, 3000);
+
+}
+
+
+// Delete Account
+
+function deleteAccount(){
+
+    const confirmDelete =
+        confirm(
+            "Are you sure you want to delete your account?"
+        );
+
+
+    if(confirmDelete)
+    {
+        alert("Account deletion request submitted.");
+    }
+
+}
+
+</script>
+
+</body>
+</html>

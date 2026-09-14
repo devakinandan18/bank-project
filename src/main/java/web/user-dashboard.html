@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Dashboard - SecureBank</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+    font-family:Arial,sans-serif;
+    background:#07111f;
+    color:#eef6ff;
+}
+.navbar{
+    height:70px;
+    background:#0d1b2e;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+}
+.logo{font-size:24px;font-weight:bold;color:#35d0ba}
+.navbar a{
+    color:#eef6ff;
+    text-decoration:none;
+    margin-left:25px;
+}
+.logout{color:#ff647c!important}
+.container{width:90%;max-width:1200px;margin:35px auto}
+.welcome{
+    margin-bottom:30px;
+}
+.welcome h1{font-size:32px;margin-bottom:8px}
+.muted{color:#91a4ba}
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+.card{
+    background:#0d1b2e;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    padding:25px;
+    transition:.3s;
+}
+.card:hover{
+    transform:translateY(-4px);
+    border-color:#35d0ba;
+}
+.icon{font-size:30px;margin-bottom:15px}
+.card h3{color:#91a4ba;font-size:15px}
+.amount{font-size:27px;margin-top:8px}
+.quick{
+    margin-top:35px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+.btn{
+    display:block;
+    text-align:center;
+    background:#35d0ba;
+    color:#06121d;
+    padding:13px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+}
+.btn.secondary{
+    background:#10233a;
+    color:#eef6ff;
+}
+.transactions{
+    margin-top:35px;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+th,td{
+    padding:15px;
+    text-align:left;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+.credit{color:#35d0ba}
+.debit{color:#ff647c}
+
+@media(max-width:800px){
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .quick{grid-template-columns:1fr}
+}
+@media(max-width:500px){
+    .cards{grid-template-columns:1fr}
+    .navbar a{margin-left:8px;font-size:13px}
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">SecureBank</div>
+    <div>
+        <a href="user-dashboard.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="#" class="logout" onclick="logout()">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="welcome"> 
+    <h1>Welcome 👋 <span id="username"></span></h1> 
+    <p class="muted">Here's your account overview</p> 
+</div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">💰</div>
+            <h3>Available Balance</h3>
+            <div class="amount" id="balance">₹0</div>
+        </div>
+
+        <div class="card">
+            <div class="icon">🏦</div>
+            <h3>Account Number</h3>
+            <div class="amount" id="accountnumber">XXXXXX4521</div>
+        </div>
+
+        <div class="card">
+            <div class="icon">📱</div>
+            <h3>Mobile Number</h3>
+            <div class="amount" id="mobilenumber">XXXXXX7890</div>
+        </div>
+
+        <div class="card">
+    <div class="icon">📊</div>
+    <h3>Total Transactions</h3>
+    <div class="amount" id="totaltransactions">0</div>
+</div>
+
+    </div>
+
+    <div class="quick">
+
+        <a class="btn" href="transfer.html">
+            💸 Transfer Money
+        </a>
+
+        <a class="btn secondary" href="deposit.html">
+            💰 Deposit Money
+        </a>
+
+        <a class="btn secondary" href="withdraw.html">
+            💳 Withdraw Money
+        </a>
+
+        <a class="btn secondary" href="transactions.html">
+            📜 Transaction History
+        </a>
+
+        <a class="btn secondary" href="account.html">
+            🏦 Account Details
+        </a>
+
+        <a class="btn secondary" href="profile.html">
+            👤 My Profile
+        </a>
+
+    </div>
+
+    <div class="transactions card">
+
+        <h2>Recent Transactions</h2>
+
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+
+            <!-- <tr>
+                <td>06 Sep 2026</td>
+                <td>Money Received</td>
+                <td class="credit">+ ₹5,000</td>
+                <td class="credit">Success</td>
+            </tr> -->
+
+            <!-- <tr>
+                <td>05 Sep 2026</td>
+                <td>Online Payment</td>
+                <td class="debit">- ₹1,500</td>
+                <td class="credit">Success</td>
+            </tr> -->
+
+            <!-- <tr>
+                <td>03 Sep 2026</td>
+                <td>Money Transfer</td>
+                <td class="debit">- ₹2,000</td>
+                <td class="credit">Success</td>
+            </tr> -->
+            <tbody id="recentTransactions"></tbody>
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const accountnumber = localStorage.getItem("accountnumber");
+const token = localStorage.getItem("token");
+
+if(!accountnumber || !token)
+{
+    window.location.replace("user-login.html");
+}
+else
+{
+    fetch("http://localhost:8080/user/getuser?accountnumber="+accountnumber, { 
+        headers: { 
+            "Authorization": "Bearer " + token
+        } 
+    }) 
+    .then(response => response.json()) 
+    .then(user => { 
+        document.getElementById("username").innerText = user.name; 
+        document.getElementById("balance").innerText = "₹" + user.balance; 
+
+        document.getElementById("accountnumber").innerText =
+            "XXXXXX" + user.accountnumber.slice(-4); 
+
+        document.getElementById("mobilenumber").innerText =
+            "XXXXXX" + user.mobilenumber.slice(-4); 
+    }) 
+    .catch(error => { 
+        console.log(error); 
+    });
+
+fetch(`http://localhost:8080/user/totaltransactions?accountnumber=${accountnumber}`, {
+    headers: {
+        "Authorization": "Bearer " + token
+    }
+})
+.then(response => response.json())
+.then(data => {
+
+    document.getElementById("totaltransactions").innerText = data;
+
+})
+.catch(error => {
+    console.log(error);
+});
+
+    // YE CODE YAHAN LAGANA HAI
+
+    fetch(`http://localhost:8080/user/transactions?accountnumber=${accountnumber}`, { 
+        headers: { 
+            "Authorization": "Bearer " + token 
+        } 
+    }) 
+    .then(response => response.json()) 
+    .then(data => { 
+ 
+        const tbody = document.getElementById("recentTransactions"); 
+ 
+        tbody.innerHTML = ""; 
+ 
+        data.reverse().slice(0,3).forEach(t => { 
+ 
+            let type = t.type.toLowerCase(); 
+ 
+            let amountClass = type === "credit" 
+                ? "credit" 
+                : "debit"; 
+ 
+            let symbol = type === "credit" 
+                ? "+" 
+                : "-"; 
+ 
+            let row = document.createElement("tr"); 
+ 
+            row.innerHTML = ` 
+                <td>${t.date}</td> 
+                <td>${t.description}</td> 
+                <td class="${amountClass}"> 
+                    ${symbol} ₹${t.amount} 
+                </td> 
+                <td class="credit">Success</td> 
+            `; 
+ 
+            tbody.appendChild(row); 
+ 
+        }); 
+ 
+    }) 
+    .catch(error => { 
+        console.log(error); 
+    });
+}
+
+
+function logout() 
+{ 
+    localStorage.removeItem("accountnumber"); 
+    localStorage.removeItem("token"); 
+    window.location.href = "user-login.html"; 
+}
+
+</script>
+</body>
+</html>

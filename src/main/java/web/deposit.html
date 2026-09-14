@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Deposit Money - SecureBank</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial;background:#07111f;color:#eef6ff}
+.nav{
+height:70px;background:#0d1b2e;
+display:flex;align-items:center;justify-content:space-between;
+padding:0 7%
+}
+.logo{font-size:24px;font-weight:bold;color:#35d0ba}
+.nav a{color:white;text-decoration:none}
+.container{width:90%;max-width:550px;margin:50px auto}
+.box{
+background:#0d1b2e;padding:35px;border-radius:18px;
+border:1px solid rgba(255,255,255,.08)
+}
+h1{margin-bottom:25px}
+label{display:block;margin:16px 0 7px;color:#91a4ba}
+input{
+width:100%;padding:14px;background:#10233a;color:white;
+border:1px solid rgba(255,255,255,.1);border-radius:9px
+}
+button{
+width:100%;padding:14px;margin-top:25px;border:0;
+border-radius:9px;background:#35d0ba;font-weight:bold
+}
+.back{
+display:block;text-align:center;margin-top:18px;color:#91a4ba;
+text-decoration:none
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+<div class="logo">SecureBank</div>
+<a href="user-dashboard.html">Dashboard</a>
+</nav>
+
+<div class="container">
+
+<div class="box">
+
+<h1>💰 Deposit Money</h1>
+
+<form onsubmit="deposit(event)">
+
+<label>Amount</label>
+<input id="amount" type="number" min="1"
+placeholder="Enter amount" required>
+
+
+<label>Transaction PIN</label>
+<input id="pin" type="password" maxlength="6"
+placeholder="Enter PIN" required>
+<button>Deposit Money</button>
+
+</form>
+
+<a href="user-dashboard.html" class="back">
+← Back to Dashboard
+</a>
+
+</div>
+</div>
+
+<script>
+
+function deposit(e){
+    e.preventDefault();
+
+    const amount = document.getElementById("amount").value;
+    const pin = document.getElementById("pin").value;
+    const accountnumber = localStorage.getItem("accountnumber");
+
+    if(amount <= 0){
+        alert("Enter valid amount");
+        return;
+    }
+
+   fetch(`http://localhost:8080/user/deposit?accountnumber=${accountnumber}&balance=${amount}&pin=${pin}`, {
+    method: "PATCH",
+    headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+    }
+})
+    .then(response => response.text())
+    .then(data => {
+
+        console.log("Backend response:", data);
+
+        if(data === "true"){
+            alert("Money deposited successfully!");
+            window.location.href = "user-dashboard.html";
+        }
+        else{
+            alert("Invalid PIN");
+        }
+
+    })
+    .catch(error => {
+        console.log(error);
+        alert("Server Error");
+    });
+}
+
+</script>
+
+</body>
+</html>

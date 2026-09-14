@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecureBank - User Login</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, Arial, sans-serif;
+}
+
+body{
+    background:#07111f;
+    color:#eef6ff;
+    min-height:100vh;
+}
+
+/* Navbar */
+.navbar{
+    height:70px;
+    background:#0d1b2e;
+    border-bottom:1px solid #1b3048;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+}
+
+.logo{
+    color:#35d0ba;
+    font-size:24px;
+    font-weight:700;
+}
+
+.navbar a{
+    color:#91a4ba;
+    text-decoration:none;
+    margin-left:25px;
+    font-size:14px;
+}
+
+.navbar a:hover{
+    color:#35d0ba;
+}
+
+/* Login */
+.login-container{
+    min-height:calc(100vh - 70px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.login-box{
+    width:100%;
+    max-width:450px;
+    background:#0d1b2e;
+    border:1px solid #1b3048;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+}
+
+.bank-icon{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.login-box h1{
+    text-align:center;
+    font-size:28px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#91a4ba;
+    margin:8px 0 30px;
+}
+
+/* Toggle */
+.login-type{
+    display:flex;
+    background:#10233a;
+    border-radius:10px;
+    padding:4px;
+    margin-bottom:22px;
+}
+
+.login-type button{
+    width:50%;
+    border:0;
+    padding:11px;
+    border-radius:8px;
+    background:transparent;
+    color:#91a4ba;
+    cursor:pointer;
+}
+
+.login-type button.active{
+    background:#35d0ba;
+    color:#07111f;
+    font-weight:700;
+}
+
+.field{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    color:#91a4ba;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    background:#10233a;
+    border:1px solid #263d58;
+    border-radius:9px;
+    color:#eef6ff;
+    outline:none;
+    font-size:15px;
+}
+
+input:focus{
+    border-color:#35d0ba;
+}
+
+.login-btn{
+    width:100%;
+    border:0;
+    padding:14px;
+    border-radius:10px;
+    background:#35d0ba;
+    color:#07111f;
+    font-weight:700;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:5px;
+}
+
+.login-btn:hover{
+    transform:translateY(-2px);
+}
+
+.bottom-links{
+    display:flex;
+    justify-content:space-between;
+    margin-top:22px;
+    font-size:13px;
+}
+
+.bottom-links a{
+    color:#91a4ba;
+    text-decoration:none;
+}
+
+.bottom-links a:hover{
+    color:#35d0ba;
+}
+
+@media(max-width:600px){
+
+    .navbar{
+        padding:0 4%;
+    }
+
+    .navbar a{
+        margin-left:10px;
+    }
+
+    .login-box{
+        padding:25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🏦 SecureBank
+    </div>
+
+    <div>
+        <a href="index.html">Home</a>
+        <a href="admin-login.html">Admin Login</a>
+    </div>
+
+</nav>
+
+
+<div class="login-container">
+
+    <div class="login-box">
+
+        <div class="bank-icon">🏦</div>
+
+        <h1>User Login</h1>
+
+        <p class="subtitle">
+            Securely access your bank account
+        </p>
+
+
+        <!-- Login Type -->
+
+        <div class="login-type">
+
+            <button
+                id="accountTab"
+                class="active"
+                onclick="selectLogin('account')">
+                Account Number
+            </button>
+
+            <button
+                id="mobileTab"
+                onclick="selectLogin('mobile')">
+                Mobile Number
+            </button>
+
+        </div>
+
+
+        <!-- Account Number -->
+
+        <div class="field" id="accountField">
+
+            <label>Account Number</label>
+
+            <input
+                type="text"
+                id="accountNumber"
+                maxlength="12"
+                placeholder="Enter account number">
+
+        </div>
+
+
+        <!-- Mobile -->
+
+        <div class="field"
+             id="mobileField"
+             style="display:none;">
+
+            <label>Mobile Number</label>
+
+            <input
+                type="tel"
+                id="mobileNumber"
+                maxlength="10"
+                placeholder="Enter mobile number">
+
+        </div>
+
+
+        <!-- Password -->
+
+        <div class="field">
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password">
+
+        </div>
+
+
+        <button
+            class="login-btn"
+            onclick="loginUser()">
+
+            🔐 Login Securely
+
+        </button>
+
+
+        <div class="bottom-links">
+
+            <a href="index.html">
+                ← Home
+            </a>
+
+            <a href="user-register.html">
+                Create Account
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let loginMethod = "account";
+
+
+function selectLogin(type){
+
+    loginMethod = type;
+
+    const accountTab =
+        document.getElementById("accountTab");
+
+    const mobileTab =
+        document.getElementById("mobileTab");
+
+    const accountField =
+        document.getElementById("accountField");
+
+    const mobileField =
+        document.getElementById("mobileField");
+
+
+    if(type === "account"){
+
+        accountTab.classList.add("active");
+        mobileTab.classList.remove("active");
+
+        accountField.style.display = "block";
+        mobileField.style.display = "none";
+
+    }else{
+
+        mobileTab.classList.add("active");
+        accountTab.classList.remove("active");
+
+        accountField.style.display = "none";
+        mobileField.style.display = "block";
+    }
+}
+
+
+function loginUser(){
+
+    const password =
+        document.getElementById("password").value;
+
+
+    if(loginMethod === "account"){
+
+        const account =
+            document.getElementById("accountNumber").value;
+
+        if(account === "" || password === ""){
+            alert("Please enter Account Number and Password.");
+
+            return;
+        }
+        else
+        {
+             fetch(`http://localhost:8080/user/loginaccountnumber?accountnumber=${account}&password=${password}`)
+             
+        .then(response => {
+            if(!response.ok){
+                throw new Error("HTTP Error Status:"+response.status);
+            }
+            return response.text();
+        })
+        .then(data => {
+
+            if (data !== "false") {
+                
+    localStorage.removeItem("accountnumber");
+    localStorage.setItem("accountnumber", account);
+    localStorage.setItem("token", data);
+
+    window.location.href = "user-dashboard.html";
+}
+            else {
+                alert("Invalid accountnumber or Password");
+            }
+
+        })
+        .catch(error => {
+            console.error(error);
+            alert("Server Error");
+        });
+        }
+
+    }else{
+
+        const mobile =
+            document.getElementById("mobileNumber").value;
+
+        if(!/^[0-9]{10}$/.test(mobile)){
+            alert("Please enter valid 10-digit mobile number.");
+            return;
+        }
+        else
+        {
+            fetch(`http://localhost:8080/user/loginmobilenumber?mobilenumber=${mobile}&password=${password}`)
+             
+        .then(response => {
+            if(!response.ok){
+                throw new Error("HTTP Error Status:"+response.status);
+            }
+            return response.text();
+        })
+        .then(data => {
+
+            if (data !== "false") {
+
+    localStorage.removeItem("accountnumber");
+
+    localStorage.setItem("token", data);
+
+    window.location.href = "user-dashboard.html";
+}
+            else {
+                alert("Invalid mobilenumber or Password");
+            }
+
+        })
+        .catch(error => {
+            console.error(error);
+            alert("Server Error");
+        });
+        }
+
+        if(password === ""){
+            alert("Please enter password.");
+            return;
+        }
+    }
+
+
+   
+
+   
+
+   // window.location.href =
+       // "user-dashboard.html";
+}
+
+</script>
+
+</body>
+</html>

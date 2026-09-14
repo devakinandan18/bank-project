@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecureBank - Admin Login</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, Arial, sans-serif;
+}
+
+body{
+    background:#07111f;
+    color:#eef6ff;
+    min-height:100vh;
+}
+
+.navbar{
+    height:70px;
+    background:#0d1b2e;
+    border-bottom:1px solid #1b3048;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+}
+
+.logo{
+    color:#35d0ba;
+    font-size:24px;
+    font-weight:700;
+}
+
+.navbar a{
+    color:#91a4ba;
+    text-decoration:none;
+    margin-left:25px;
+}
+
+.navbar a:hover{
+    color:#35d0ba;
+}
+
+.login-container{
+    min-height:calc(100vh - 70px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.login-box{
+    width:100%;
+    max-width:450px;
+    background:#0d1b2e;
+    border:1px solid #1b3048;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+}
+
+.bank-icon{
+    text-align:center;
+    font-size:42px;
+}
+
+h1{
+    text-align:center;
+    margin-top:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#91a4ba;
+    margin:8px 0 30px;
+}
+
+.field{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    color:#91a4ba;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    background:#10233a;
+    border:1px solid #263d58;
+    border-radius:9px;
+    color:#eef6ff;
+    outline:none;
+}
+
+input:focus{
+    border-color:#35d0ba;
+}
+
+.login-btn{
+    width:100%;
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    background:#35d0ba;
+    color:#07111f;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.login-btn:hover{
+    transform:translateY(-2px);
+}
+
+.bottom-links{
+    display:flex;
+    justify-content:space-between;
+    margin-top:22px;
+}
+
+.bottom-links a{
+    color:#91a4ba;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.bottom-links a:hover{
+    color:#35d0ba;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🏦 SecureBank
+    </div>
+
+    <div>
+        <a href="index.html">Home</a>
+        <a href="user-login.html">User Login</a>
+    </div>
+
+</nav>
+
+
+<div class="login-container">
+
+    <div class="login-box">
+
+        <div class="bank-icon">
+            🛡️
+        </div>
+
+        <h1>Admin Login</h1>
+
+        <p class="subtitle">
+            Secure administrator access
+        </p>
+
+
+        <div class="field">
+
+            <label>Mobile Number</label>
+
+            <input
+                type="tel"
+                id="mobile"
+                maxlength="10"
+                placeholder="Enter mobile number">
+
+        </div>
+
+
+        <div class="field">
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password">
+
+        </div>
+
+
+        <button
+            class="login-btn"
+            onclick="adminLogin()">
+
+            🔐 Admin Login
+
+        </button>
+
+
+        <div class="bottom-links">
+
+            <a href="index.html">
+                ← Home
+            </a>
+
+            <a href="admin-register.html">
+                Create Admin Account
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function adminLogin(){
+
+    const mobile =
+        document.getElementById("mobile").value;
+
+    const password =
+        document.getElementById("password").value;
+
+
+    if(!/^[0-9]{10}$/.test(mobile)){
+
+        alert("Please enter valid 10-digit mobile number.");
+        return;
+    }
+
+    else
+    {
+        fetch(`http://localhost:8080/admin/loginmobilenumber?mobilenumber=${mobile}&password=${password}`)
+             
+        .then(response => {
+            if(!response.ok){
+                throw new Error("HTTP Error Status:"+response.status);
+            }
+            return response.text();
+        })
+        .then(data => {
+
+            if(data !== "false"){
+                
+               // Login sahi hone par
+              // sessionStorage.setItem("loggedIn", "true");
+              localStorage.setItem("adminmobilenumber",mobile);
+                localStorage.setItem("adminToken", data);
+              window.location.href = "admin-dashboard.html";     // Ab redirect karein
+
+                 
+                //setUserDetail(username);
+                
+            }
+            else {
+                alert("Invalid mobilenumber or Password");
+            }
+
+        })
+        .catch(error => {
+            console.error(error);
+            alert("Server Error");
+        });
+    }
+
+
+    if(password === ""){
+
+        alert("Please enter password.");
+        return;
+    }
+
+//  alert("Admin login successful!");
+
+//     window.location.href =
+   
+//         "admin-dashboard.html";
+}
+
+</script>
+
+</body>
+</html>

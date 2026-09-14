@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SecureBank - User Registration</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,Arial,sans-serif;
+}
+
+body{
+    background:#07111f;
+    color:#eef6ff;
+    min-height:100vh;
+}
+
+.navbar{
+    height:70px;
+    background:#0d1b2e;
+    border-bottom:1px solid #1b3048;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+}
+
+.logo{
+    color:#35d0ba;
+    font-size:24px;
+    font-weight:700;
+}
+
+.navbar a{
+    color:#91a4ba;
+    text-decoration:none;
+    margin-left:25px;
+}
+
+.navbar a:hover{
+    color:#35d0ba;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    padding:40px 20px;
+}
+
+.register-box{
+    width:100%;
+    max-width:650px;
+    background:#0d1b2e;
+    border:1px solid #1b3048;
+    border-radius:20px;
+    padding:35px;
+}
+
+.icon{
+    text-align:center;
+    font-size:40px;
+}
+
+h1{
+    text-align:center;
+    margin-top:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#91a4ba;
+    margin:8px 0 30px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.field{
+    margin-bottom:5px;
+}
+
+.full{
+    grid-column:1 / -1;
+}
+
+label{
+    display:block;
+    color:#91a4ba;
+    font-size:14px;
+    margin-bottom:7px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    background:#10233a;
+    border:1px solid #263d58;
+    border-radius:9px;
+    color:#eef6ff;
+    outline:none;
+}
+
+input:focus{
+    border-color:#35d0ba;
+}
+
+.register-btn{
+    width:100%;
+    margin-top:22px;
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    background:#35d0ba;
+    color:#07111f;
+    font-weight:700;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.register-btn:hover{
+    transform:translateY(-2px);
+}
+
+.login-link{
+    text-align:center;
+    margin-top:20px;
+    color:#91a4ba;
+    font-size:14px;
+}
+
+.login-link a{
+    color:#35d0ba;
+    text-decoration:none;
+}
+
+.note{
+    margin-top:18px;
+    padding:12px;
+    border-radius:8px;
+    background:#10233a;
+    color:#91a4ba;
+    font-size:12px;
+}
+
+@media(max-width:650px){
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .register-box{
+        padding:25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🏦 SecureBank
+    </div>
+
+    <div>
+        <a href="index.html">Home</a>
+        <a href="user-login.html">Login</a>
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="register-box">
+
+        <div class="icon">
+            🏦
+        </div>
+
+        <h1>Create User Account</h1>
+
+        <p class="subtitle">
+            Register for SecureBank digital banking
+        </p>
+
+
+        <div class="form-grid">
+
+            <div class="field full">
+
+                <label>Full Name</label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your full name">
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Mobile Number</label>
+
+                <input
+                    type="tel"
+                    id="mobile"
+                    maxlength="10"
+                    placeholder="10-digit mobile number">
+
+            </div>
+
+             <div class="field">
+
+                <label>Email id</label>
+
+                <input
+                    type="email"
+                    id="email"
+                   
+                    placeholder="Email">
+
+            </div>
+            <div class="field">
+
+                <label>IFSC Code</label>
+
+                <input
+                    type="text"
+                    id="ifsc"
+                    placeholder="Example: SBIN0001234">
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Create password">
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Confirm Password</label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm password">
+
+            </div>
+
+
+            <div class="field">
+
+                <label>6-Digit PIN</label>
+
+                <input
+                    type="password"
+                    id="pin"
+                    maxlength="6"
+                    placeholder="Transaction PIN">
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Confirm PIN</label>
+
+                <input
+                    type="password"
+                    id="confirmPin"
+                    maxlength="6"
+                    placeholder="Confirm PIN">
+
+            </div>
+
+
+            <div class="field full">
+
+                <label>Initial Amount</label>
+
+                <input
+                    type="number"
+                    id="amount"
+                    min="0"
+                    placeholder="Enter initial amount">
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="register-btn"
+            onclick="registerUser()">
+
+            Create Bank Account
+
+        </button>
+
+
+        <div class="note">
+            🔐 Your password and PIN should be kept confidential.
+        </div>
+
+
+        <div class="login-link">
+
+            Already have an account?
+
+            <a href="user-login.html">
+                Login here
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function registerUser(){
+
+    // const user={
+    //     "name": document.getElementById("name").value,
+    //     "password": document.getElementById("password").value,
+    //     "confirmpassword": document.getElementById("confirmpassword").value,
+    //     "mobile":document.getElementById("mobile").value,
+    //     "ifsc":document.getElementById("ifsc").value,
+    //     "pin":document.getElementById("pin").value,
+    //     "confirmpin":document.getElementById("confirmpin").value,
+    //     "amount":document.getElementById("amount").value,
+    // }
+    const name =
+        document.getElementById("name").value.trim();
+
+    const mobile =
+        document.getElementById("mobile").value.trim();
+
+    const ifsc =
+        document.getElementById("ifsc").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    const pin =
+        document.getElementById("pin").value;
+
+    const confirmPin =
+        document.getElementById("confirmPin").value;
+         const email =
+        document.getElementById("email").value;
+
+    const amount =
+        document.getElementById("amount").value;
+
+
+    if(name === ""){
+        alert("Please enter your name.");
+        return;
+    }
+
+
+    if(!/^[0-9]{10}$/.test(mobile)){
+        alert("Please enter valid 10-digit mobile number.");
+        return;
+    }
+
+
+    if(ifsc === ""){
+        alert("Please enter IFSC code.");
+        return;
+    }
+
+
+    if(password.length < 6){
+        alert("Password must contain at least 6 characters.");
+        return;
+    }
+
+
+    if(password !== confirmPassword){
+        alert("Passwords do not match.");
+        return;
+    }
+
+
+    if(!/^[0-9]{6}$/.test(pin)){
+        alert("PIN must contain exactly 6 digits.");
+        return;
+    }
+
+
+    if(pin !== confirmPin){
+        alert("PINs do not match.");
+        return;
+    }
+
+
+    if(amount === "" || Number(amount) < 0){
+        alert("Please enter valid initial amount.");
+        return;
+    }
+    const user = {
+        name: name,
+        mobilenumber: mobile,
+        ifsccode: ifsc,
+        password: password,
+        pin: pin,
+        balance: Number(amount),
+        email:email
+    };
+      fetch("http://localhost:8080/user",{
+        "method":"POST",
+        "headers":{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(user)
+    })
+    .then(response=>response.json())
+    .then(data=>{
+        if(data){
+            alert("register successful");
+            window.location.href="user-login.html";
+        }
+        else
+        {
+            alert("user already exist");
+        }
+    })
+    .catch(error=>{
+        console.error(error);
+        alert("server alert");
+    })
+
+    // alert("User registration successful!");
+
+    // window.location.href =
+    //     "user-login.html";
+}
+
+</script>
+
+</body>
+</html>

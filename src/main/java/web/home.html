@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SecureBank | Digital Banking</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #07111f;
+            color: #eef6ff;
+            line-height: 1.6;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            height: 70px;
+            background: #0d1b2e;
+            border-bottom: 1px solid #1b3048;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #35d0ba;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #c8d5e5;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #35d0ba;
+        }
+
+        .nav-btn {
+            padding: 9px 18px;
+            border: 1px solid #35d0ba;
+            border-radius: 8px;
+            color: #35d0ba !important;
+        }
+
+        .nav-btn:hover {
+            background: #35d0ba;
+            color: #07111f !important;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 620px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 70px 7%;
+            gap: 50px;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .small-title {
+            color: #35d0ba;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #35d0ba;
+        }
+
+        .hero p {
+            color: #91a4ba;
+            font-size: 17px;
+            max-width: 570px;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            padding: 13px 24px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .primary-btn {
+            background: #35d0ba;
+            color: #07111f;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(53, 208, 186, 0.2);
+        }
+
+        .secondary-btn {
+            border: 1px solid #35d0ba;
+            color: #35d0ba;
+        }
+
+        .secondary-btn:hover {
+            background: #35d0ba;
+            color: #07111f;
+        }
+
+
+        /* ================= HERO CARD ================= */
+
+        .bank-card {
+            width: 390px;
+            height: 245px;
+
+            background:
+                linear-gradient(135deg, #102c43, #0d1b2e);
+
+            border: 1px solid #24435e;
+            border-radius: 22px;
+
+            padding: 30px;
+
+            box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+
+            transform: rotate(3deg);
+            transition: 0.4s;
+        }
+
+        .bank-card:hover {
+            transform: rotate(0deg) translateY(-8px);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-name {
+            color: #35d0ba;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .chip {
+            width: 45px;
+            height: 32px;
+            border-radius: 7px;
+            background: #d8c477;
+        }
+
+        .card-number {
+            margin-top: 45px;
+            font-size: 20px;
+            letter-spacing: 3px;
+        }
+
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            color: #91a4ba;
+            font-size: 12px;
+        }
+
+
+        /* ================= SECTION ================= */
+
+        .section {
+            padding: 80px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #91a4ba;
+        }
+
+
+        /* ================= SERVICES ================= */
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            background: #0d1b2e;
+            border: 1px solid #1b3048;
+            padding: 28px 22px;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-7px);
+            border-color: #35d0ba;
+        }
+
+        .service-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: #91a4ba;
+            font-size: 14px;
+        }
+
+
+        /* ================= ABOUT ================= */
+
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-box {
+            background: #0d1b2e;
+            border: 1px solid #1b3048;
+            border-radius: 18px;
+            padding: 35px;
+        }
+
+        .about-box h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .about-box p {
+            color: #91a4ba;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .feature {
+            background: #10233a;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #1b3048;
+        }
+
+        .feature strong {
+            color: #35d0ba;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .feature span {
+            color: #91a4ba;
+            font-size: 14px;
+        }
+
+
+        /* ================= SECURITY ================= */
+
+        .security {
+            background: #0a1727;
+            border-top: 1px solid #13283e;
+            border-bottom: 1px solid #13283e;
+        }
+
+        .security-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .security-card {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .security-card .icon {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .security-card p {
+            color: #91a4ba;
+            font-size: 14px;
+        }
+
+
+        /* ================= CTA ================= */
+
+        .cta {
+            margin: 60px 7%;
+            padding: 55px;
+            border-radius: 20px;
+
+            background:
+                linear-gradient(135deg, #0d2739, #0d1b2e);
+
+            border: 1px solid #24435e;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            color: #91a4ba;
+            margin-bottom: 25px;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #050d18;
+            border-top: 1px solid #1b3048;
+            padding: 40px 7%;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-about {
+            max-width: 350px;
+        }
+
+        .footer-about p {
+            color: #91a4ba;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 50px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #91a4ba;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 6px 0;
+        }
+
+        .footer-links a:hover {
+            color: #35d0ba;
+        }
+
+        .copyright {
+            border-top: 1px solid #1b3048;
+            margin-top: 30px;
+            padding-top: 20px;
+            color: #667b91;
+            text-align: center;
+            font-size: 13px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width: 900px) {
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 50px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .bank-card {
+                width: 350px;
+            }
+
+            .services {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .security-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 600px) {
+
+            nav {
+                padding: 0 5%;
+            }
+
+            .nav-links a {
+                display: none;
+            }
+
+            .nav-links .nav-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .bank-card {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .services {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .cta {
+                margin: 40px 5%;
+                padding: 35px 20px;
+            }
+
+            .footer-links {
+                gap: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav>
+
+        <a href="index.html" class="logo">
+            Secure<span>Bank</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#security">Security</a>
+
+            <a href="user-login.html" class="nav-btn">
+                Login
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="small-title">
+                WELCOME TO SECUREBANK
+            </div>
+
+            <h1>
+                Banking Made
+                <span>Simple & Secure.</span>
+            </h1>
+
+            <p>
+                Manage your money, transfer funds, check your balance
+                and track your transactions — all from one secure
+                digital banking platform.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="user-login.html" class="primary-btn">
+                    User Login
+                </a>
+
+                <a href="user-register.html" class="secondary-btn">
+                    Open Account
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- BANK CARD -->
+
+        <div class="bank-card">
+
+            <div class="card-top">
+
+                <div class="card-name">
+                    SecureBank
+                </div>
+
+                <div class="chip"></div>
+
+            </div>
+
+            <div class="card-number">
+                •••• •••• •••• 1234
+            </div>
+
+            <div class="card-bottom">
+
+                <div>
+                    CARD HOLDER<br>
+                    <strong>YOUR NAME</strong>
+                </div>
+
+                <div>
+                    VALID THRU<br>
+                    <strong>12/30</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SERVICES ================= -->
+
+    <section class="section" id="services">
+
+        <div class="section-title">
+
+            <h2>Banking Services</h2>
+
+            <p>
+                Everything you need to manage your finances.
+            </p>
+
+        </div>
+
+
+        <div class="services">
+
+            <div class="service-card">
+
+                <div class="service-icon">💰</div>
+
+                <h3>Easy Deposits</h3>
+
+                <p>
+                    Add money to your bank account quickly
+                    and conveniently.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <div class="service-icon">💸</div>
+
+                <h3>Money Transfer</h3>
+
+                <p>
+                    Transfer money securely whenever
+                    you need it.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <div class="service-icon">🏧</div>
+
+                <h3>Withdraw Money</h3>
+
+                <p>
+                    Manage your available balance and
+                    withdraw funds easily.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <div class="service-icon">📊</div>
+
+                <h3>Transactions</h3>
+
+                <p>
+                    View and track your complete
+                    transaction history.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section class="section" id="about">
+
+        <div class="about">
+
+            <div class="about-box">
+
+                <h2>About SecureBank</h2>
+
+                <p>
+                    SecureBank is a modern digital banking platform
+                    designed to make everyday banking simple,
+                    convenient and secure.
+                </p>
+
+                <p>
+                    From checking your account balance to transferring
+                    money, SecureBank gives you the tools you need
+                    to manage your finances from one place.
+                </p>
+
+                <a href="user-register.html"
+                   class="primary-btn"
+                   style="display:inline-block;margin-top:10px;">
+                    Start Banking
+                </a>
+
+            </div>
+
+
+            <div class="features">
+
+                <div class="feature">
+
+                    <strong>24/7</strong>
+
+                    <span>
+                        Digital Banking Access
+                    </span>
+
+                </div>
+
+                <div class="feature">
+
+                    <strong>100%</strong>
+
+                    <span>
+                        Secure Transactions
+                    </span>
+
+                </div>
+
+                <div class="feature">
+
+                    <strong>Fast</strong>
+
+                    <span>
+                        Money Transfers
+                    </span>
+
+                </div>
+
+                <div class="feature">
+
+                    <strong>Simple</strong>
+
+                    <span>
+                        Easy-to-use Interface
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SECURITY ================= -->
+
+    <section class="section security" id="security">
+
+        <div class="section-title">
+
+            <h2>Your Security Matters</h2>
+
+            <p>
+                Built with security and privacy in mind.
+            </p>
+
+        </div>
+
+
+        <div class="security-content">
+
+            <div class="security-card">
+
+                <div class="icon">🔐</div>
+
+                <h3>Secure Login</h3>
+
+                <p>
+                    Your banking account is protected
+                    with secure authentication.
+                </p>
+
+            </div>
+
+
+            <div class="security-card">
+
+                <div class="icon">🛡️</div>
+
+                <h3>Protected Data</h3>
+
+                <p>
+                    Your personal and financial information
+                    is handled securely.
+                </p>
+
+            </div>
+
+
+            <div class="security-card">
+
+                <div class="icon">🔑</div>
+
+                <h3>PIN Protection</h3>
+
+                <p>
+                    Sensitive transactions can be protected
+                    using your secure banking PIN.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta">
+
+        <h2>Ready to Start Banking?</h2>
+
+        <p>
+            Create your SecureBank account and experience
+            simple digital banking.
+        </p>
+
+        <a href="user-register.html" class="primary-btn">
+            Create Your Account
+        </a>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <div class="footer-about">
+
+                <a href="index.html"
+                   class="logo">
+                    Secure<span>Bank</span>
+                </a>
+
+                <p>
+                    Modern digital banking designed for
+                    simple, secure and convenient banking.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <div>
+
+                    <h4>Account</h4>
+
+                    <a href="user-login.html">
+                        User Login
+                    </a>
+
+                    <a href="user-register.html">
+                        User Register
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <h4>Admin</h4>
+
+                    <a href="admin-login.html">
+                        Admin Login
+                    </a>
+
+                    <a href="admin-register.html">
+                        Admin Register
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 SecureBank. All rights reserved.
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
