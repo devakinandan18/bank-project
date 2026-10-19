@@ -108,7 +108,7 @@ if(!accountnumber || !token)
     window.location.href = "user-login.html";
 }
 
-fetch(`http://localhost:8080/user/transactions?accountnumber=${accountnumber}`, {
+fetch(`https://bank-project-7mle.onrender.com/user/transactions?accountnumber=${accountnumber}`, {
     headers: {
         "Authorization": "Bearer " + token
     }

@@ -985,7 +985,7 @@ window.onload = function(){
     // TOTAL USERS
     // =========================
 
-    fetch("http://localhost:8080/user/totalusers",{
+    fetch("https://bank-project-7mle.onrender.com/user/totalusers",{
          headers: {
         "Authorization": "Bearer " + localStorage.getItem("adminToken")
     }
@@ -1008,7 +1008,7 @@ window.onload = function(){
     // TOTAL ACCOUNTS
     // =========================
 
-    fetch("http://localhost:8080/user/totalaccounts",{
+    fetch("https://bank-project-7mle.onrender.com/user/totalaccounts",{
          headers: {
         "Authorization": "Bearer " + localStorage.getItem("adminToken")
     }
@@ -1030,7 +1030,7 @@ window.onload = function(){
     // TOTAL BANK BALANCE
     // =========================
 
-    fetch("http://localhost:8080/user/totalbalance",{
+    fetch("https://bank-project-7mle.onrender.com/user/totalbalance",{
          headers: {
         "Authorization": "Bearer " + localStorage.getItem("adminToken")
     }
@@ -1059,7 +1059,7 @@ window.onload = function(){
     if(adminMobile != null)
     {
         fetch(
-            "http://localhost:8080/admin/getadmin?mobilenumber="+ encodeURIComponent(adminMobile),{
+            "https://bank-project-7mle.onrender.com/admin/getadmin?mobilenumber="+ encodeURIComponent(adminMobile),{
                  headers: {
         "Authorization": "Bearer " + localStorage.getItem("adminToken")
     }
@@ -1110,7 +1110,7 @@ function findUser(){
 
 
     fetch(
-        "http://localhost:8080/user/getuser?accountnumber="+encodeURIComponent(account),{
+        "https://bank-project-7mle.onrender.com/user/getuser?accountnumber="+encodeURIComponent(account),{
              headers: {
         "Authorization": "Bearer " + localStorage.getItem("adminToken")
     }
@@ -1228,7 +1228,7 @@ function depositMoney(){
 
 
     fetch(
-        "http://localhost:8080/admin/deposit?accountnumber="+ encodeURIComponent(account) + "&amount=" + encodeURIComponent(amount),
+        "https://bank-project-7mle.onrender.com/admin/deposit?accountnumber="+ encodeURIComponent(account) + "&amount=" + encodeURIComponent(amount),
         {
             method: "PATCH",
              headers: {
@@ -1408,7 +1408,7 @@ function updateProfile(){
     if(newName !== ""){
 
         fetch(
-            "http://localhost:8080/admin/updateadmin?newdetail="
+            "https://bank-project-7mle.onrender.com/admin/updateadmin?newdetail="
             + encodeURIComponent(newName)
             + "&mobilenumber="
             + encodeURIComponent(oldMobile)
@@ -1443,7 +1443,7 @@ function updateProfile(){
        newMobile !== oldMobile){
 
         fetch(
-            "http://localhost:8080/admin/updateadmin?newdetail="
+            "https://bank-project-7mle.onrender.com/admin/updateadmin?newdetail="
             + encodeURIComponent(newMobile)
             + "&mobilenumber="
             + encodeURIComponent(oldMobile)
@@ -1480,7 +1480,7 @@ function updateProfile(){
     if(newPassword !== ""){
 
         fetch(
-            "http://localhost:8080/admin/updateadmin?newdetail=" + encodeURIComponent(newPassword) + "&mobilenumber=" + encodeURIComponent(oldMobile) + "&choice=3",
+            "https://bank-project-7mle.onrender.com/admin/updateadmin?newdetail=" + encodeURIComponent(newPassword) + "&mobilenumber=" + encodeURIComponent(oldMobile) + "&choice=3",
             {
                 method: "PATCH", 
                 headers: {
@@ -1557,7 +1557,7 @@ const adminToken =
 if(adminMobile != null && adminToken != null)
 {
     fetch(
-        "http://localhost:8080/admin/getadmin?mobilenumber="
+        "https://bank-project-7mle.onrender.com/admin/getadmin?mobilenumber="
         + encodeURIComponent(adminMobile),
         {
             headers: {

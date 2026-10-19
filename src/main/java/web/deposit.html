@@ -85,7 +85,7 @@ function deposit(e){
         return;
     }
 
-   fetch(`http://localhost:8080/user/deposit?accountnumber=${accountnumber}&balance=${amount}&pin=${pin}`, {
+   fetch(`https://bank-project-7mle.onrender.com/user/deposit?accountnumber=${accountnumber}&balance=${amount}&pin=${pin}`, {
     method: "PATCH",
     headers: {
         "Authorization": "Bearer " + localStorage.getItem("token")

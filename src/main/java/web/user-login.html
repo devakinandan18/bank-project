@@ -364,7 +364,7 @@ function loginUser(){
         }
         else
         {
-             fetch(`http://localhost:8080/user/loginaccountnumber?accountnumber=${account}&password=${password}`)
+             fetch(`https://bank-project-7mle.onrender.com/user/loginaccountnumber?accountnumber=${account}&password=${password}`)
              
         .then(response => {
             if(!response.ok){
@@ -404,7 +404,7 @@ function loginUser(){
         }
         else
         {
-            fetch(`http://localhost:8080/user/loginmobilenumber?mobilenumber=${mobile}&password=${password}`)
+            fetch(`https://bank-project-7mle.onrender.com/user/loginmobilenumber?mobilenumber=${mobile}&password=${password}`)
              
         .then(response => {
             if(!response.ok){

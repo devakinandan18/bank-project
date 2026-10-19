@@ -147,7 +147,7 @@ document.getElementById("transferForm").addEventListener("submit", function(even
     console.log("Amount:", amount);
     console.log("PIN:", pin);
 
-    fetch(`http://localhost:8080/user/transfermoney?accountnumbersender=${sender}&accountnumberreceiver=${receiver}&pin=${pin}&amount=${amount}`, {
+    fetch(`https://bank-project-7mle.onrender.com/user/transfermoney?accountnumbersender=${sender}&accountnumberreceiver=${receiver}&pin=${pin}&amount=${amount}`, {
     method: "PATCH",
     headers: {
         "Authorization": "Bearer " + localStorage.getItem("token")

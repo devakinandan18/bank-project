@@ -225,7 +225,7 @@ if(!accountnumber || !token)
 }
 else
 {
-    fetch("http://localhost:8080/user/getuser?accountnumber="+accountnumber, { 
+    fetch("https://bank-project-7mle.onrender.com/user/getuser?accountnumber="+accountnumber, { 
         headers: { 
             "Authorization": "Bearer " + token
         } 
@@ -245,7 +245,7 @@ else
         console.log(error); 
     });
 
-fetch(`http://localhost:8080/user/totaltransactions?accountnumber=${accountnumber}`, {
+fetch(`https://bank-project-7mle.onrender.com/user/totaltransactions?accountnumber=${accountnumber}`, {
     headers: {
         "Authorization": "Bearer " + token
     }
@@ -262,7 +262,7 @@ fetch(`http://localhost:8080/user/totaltransactions?accountnumber=${accountnumbe
 
     // YE CODE YAHAN LAGANA HAI
 
-    fetch(`http://localhost:8080/user/transactions?accountnumber=${accountnumber}`, { 
+    fetch(`https://bank-project-7mle.onrender.com/user/transactions?accountnumber=${accountnumber}`, { 
         headers: { 
             "Authorization": "Bearer " + token 
         } 

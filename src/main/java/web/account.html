@@ -118,7 +118,7 @@ window.onload = function(){
         localStorage.getItem("accountnumber");
 
 
-   fetch("http://localhost:8080/user/getuser?accountnumber="+accountnumber, {
+   fetch("https://bank-project-7mle.onrender.com/user/getuser?accountnumber="+accountnumber, {
     headers: {
         "Authorization": "Bearer " + localStorage.getItem("token")
     }
