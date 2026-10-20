@@ -23,6 +23,10 @@ import com.ex.project1.security.JwtService;
 @RestController
 @RequestMapping("/user")
 public class Usercontroller {
+    @GetMapping("/health")
+    public String health() {
+    return "OK";
+    }
 
     @Autowired
 JwtService jwtService;
