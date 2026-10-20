@@ -33,6 +33,8 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
 
+            .requestMatchers("/user/health").permitAll()
+
               
                 .requestMatchers(
                     "/user/loginaccountnumber",
